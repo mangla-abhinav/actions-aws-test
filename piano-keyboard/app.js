@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  var keys = $('a');
+  const keys = $('a');
   const sounds = [];
   for (let i = 0; i < keys.length; i += 1) {
     sounds[i] = new Howl({
