@@ -14,9 +14,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-      - name: Run ESLint
-        run: npm install eslint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
+      - run: npm install eslint
+      - run: eslint . --ext .js,.jsx,.ts,.tsx
   stylelint:
     needs: eslint
     runs-on: ubuntu-latest
