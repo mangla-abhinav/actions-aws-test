@@ -26,8 +26,18 @@ jobs:
           node-version: '14'
       - run: npm install --save-dev stylelint stylelint-config-standard
       - run: npx stylelint "**/*.css"
+  prettier:
+    needs: stylelint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install --save-dev --save-exact prettier
+      - run: npx prettier --check .
   s3_sync:
-    # needs: stylelint
+    needs: prettier
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,9 +47,9 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-south-1
+          aws-region: ${{ secrets.AWS_REGION }}
       - name: Copy files to the s3 website content bucket
-        run: aws s3 sync . s3://${{ secrets.AWS_BUCKET }}
+        run: aws s3 sync . s3://${{ secrets.AWS_BUCKET }} --delete --follow-symlinks --exclude '.git/*' --exclude '.github/*'
   s3_invalidate_cache:
     needs: s3_sync
     runs-on: ubuntu-latest
