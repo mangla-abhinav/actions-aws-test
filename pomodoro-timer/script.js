@@ -3,12 +3,12 @@ $(document).ready(() => {
   let clockRunning = false;
   let memoryTime = {
     minutes: 15,
-    seconds: 0,
+    seconds: 0
   };
   let interval;
   let userTime = {};
   const sound = new Howl({
-    src: ['sound.mp3'],
+    src: ['sound.mp3']
   });
 
   const disableInput = () => {
@@ -64,7 +64,7 @@ $(document).ready(() => {
     e.preventDefault();
     memoryTime = {
       minutes: parseInt($('#minutes').val(), 10),
-      seconds: parseInt($('#seconds').val(), 10),
+      seconds: parseInt($('#seconds').val(), 10)
     };
 
     if (checkTime(memoryTime)) {
@@ -104,7 +104,7 @@ $(document).ready(() => {
       alert('Enter valid time');
       updateTime({
         minutes: 15,
-        seconds: 0,
+        seconds: 0
       });
       enableInput();
     }

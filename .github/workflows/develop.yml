@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: '14'
       - run: npm install --save-dev --save-exact prettier
-      - run: npx prettier --check .
+      - run: npx prettier --write .
   s3_sync:
     needs: prettier
     runs-on: ubuntu-latest
